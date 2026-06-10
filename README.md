@@ -17,6 +17,8 @@ npm run build
 
 The build outputs `dist/accessibility-widget.umd.js` (and `.esm.js` / `.cjs.js`). Drop the UMD bundle into your page to mount the widget.
 
+[**View Demo**](demo/index.html) — a standalone demo page (`demo/index.html`) with varied content to exercise every tool. Open it locally after building, or serve it via GitHub Pages.
+
 ## 🚀 Features
 
 ✅ **Dyslexia Font**:  Dyslexia font to make reading easier for dyslexic users.

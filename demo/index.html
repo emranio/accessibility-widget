@@ -301,19 +301,6 @@
     .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 12px; }
     .swatch { height: 70px; border-radius: 10px; display: flex; align-items: flex-end; padding: 8px; color: #fff; font-size: .78rem; font-weight: 700; }
 
-    /* Language switch buttons */
-    .langs { display: flex; flex-wrap: wrap; gap: 8px; }
-    .langs button {
-      border: 1px solid var(--border);
-      background: #fff;
-      border-radius: 8px;
-      padding: 7px 13px;
-      cursor: pointer;
-      font: inherit;
-      font-weight: 600;
-    }
-    .langs button:hover { border-color: var(--brand); color: var(--brand); }
-
     .note { font-size: .9rem; color: var(--muted); }
 
     footer.site {
@@ -329,7 +316,10 @@
     footer.site li { margin: 6px 0; }
   </style>
 </head>
-<body>
+<body
+  data-accessibility-widget-position="bottom-right"
+  data-accessibility-widget-offset="24,24"
+  data-accessibility-widget-size="58">
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <header class="site">
@@ -574,22 +564,6 @@
         </div>
       </section>
 
-      <!-- LANGUAGE -->
-      <section class="block" id="language">
-        <h2>Switch widget language <span class="tag">i18n · RTL</span></h2>
-        <p class="note">These call <code>window.AccessibilityWidgetPlugin.changeLanguage(code)</code>. Open the widget menu first, then switch — Arabic/Hebrew also flip it to RTL.</p>
-        <div class="langs">
-          <button onclick="setLang('en')">English</button>
-          <button onclick="setLang('es')">Español</button>
-          <button onclick="setLang('fr')">Français</button>
-          <button onclick="setLang('de')">Deutsch</button>
-          <button onclick="setLang('ar')">العربية (RTL)</button>
-          <button onclick="setLang('he')">עברית (RTL)</button>
-          <button onclick="setLang('zh-hans')">中文</button>
-          <button onclick="setLang('hi')">हिन्दी</button>
-        </div>
-      </section>
-
       <!-- HOW TO TEST -->
       <section class="block" id="testing">
         <h2>How to test each tool <span class="tag">cheat sheet</span></h2>
@@ -607,12 +581,21 @@
         </ol>
 
         <h3>How this page embeds the widget</h3>
-        <pre><code><span class="cmt">&lt;!-- built from this repo: npm install &amp;&amp; npm run build --&gt;</span>
-<span class="tok">&lt;script</span>
-  <span class="str">src</span>=<span class="str">"../dist/accessibility-widget.umd.js"</span>
-  <span class="str">data-accessibility-widget-position</span>=<span class="str">"bottom-right"</span>
-  <span class="str">data-accessibility-widget-offset</span>=<span class="str">"24,24"</span>
-  <span class="str">data-accessibility-widget-size</span>=<span class="str">"58"</span><span class="tok">&gt;&lt;/script&gt;</span></code></pre>
+        <p class="note">Build once, then import the module — no CDN script tag. Config comes from <code>data-accessibility-widget-*</code> attributes on <code>&lt;body&gt;</code> (the widget reads them on load).</p>
+        <pre><code><span class="cmt"># 1. build the bundle</span>
+npm install
+npm run build
+
+<span class="cmt">&lt;!-- 2. map the package to the built ESM file --&gt;</span>
+<span class="tok">&lt;script</span> <span class="str">type</span>=<span class="str">"importmap"</span><span class="tok">&gt;</span>
+{ <span class="str">"imports"</span>: { <span class="str">"accessibility-widget"</span>: <span class="str">"../dist/accessibility-widget.esm.js"</span> } }
+<span class="tok">&lt;/script&gt;</span>
+
+<span class="cmt">&lt;!-- 3. set options on body, then import (auto-mounts) --&gt;</span>
+<span class="tok">&lt;body</span> <span class="str">data-accessibility-widget-position</span>=<span class="str">"bottom-right"</span><span class="tok">&gt;</span>
+<span class="tok">&lt;script</span> <span class="str">type</span>=<span class="str">"module"</span><span class="tok">&gt;</span>
+  <span class="tok">import</span> <span class="str">'accessibility-widget'</span>;
+<span class="tok">&lt;/script&gt;</span></code></pre>
         <p class="note">Positions: <code>bottom-left</code> (default), <code>bottom-right</code>, <code>top-left</code>, <code>top-right</code>, <code>center-left</code>, <code>center-right</code>, <code>bottom-center</code>, <code>top-center</code>.</p>
       </section>
 
@@ -644,21 +627,13 @@
     </div>
   </footer>
 
-  <script>
-    function setLang(code) {
-      if (window.AccessibilityWidgetPlugin && window.AccessibilityWidgetPlugin.changeLanguage) {
-        window.AccessibilityWidgetPlugin.changeLanguage(code);
-      } else {
-        alert('Widget not loaded yet — make sure dist/ is built (npm run build).');
-      }
-    }
+  <!-- The accessibility widget: map the package name to the built ESM bundle… -->
+  <script type="importmap">
+    { "imports": { "accessibility-widget": "../dist/accessibility-widget.esm.js" } }
   </script>
-
-  <!-- The accessibility widget (built bundle, auto-mounts on load) -->
-  <script
-    src="../dist/accessibility-widget.umd.js"
-    data-accessibility-widget-position="bottom-right"
-    data-accessibility-widget-offset="24,24"
-    data-accessibility-widget-size="58"></script>
+  <!-- …then import it. Reads data-accessibility-widget-* from <body> and auto-mounts. -->
+  <script type="module">
+    import 'accessibility-widget';
+  </script>
 </body>
 </html>
