@@ -10,13 +10,10 @@ import adjustFontSize from "../../tools/adjustFontSize";
 import renderTools from "./renderTools";
 import reset from "./reset";
 
-import { ILanguage, LANGUAGES } from "../../i18n/Languages";
-
 import css from "./menu.css";
 import enableContrast from "@/tools/enableContrast";
 import { pluginConfig } from "@/globals/pluginConfig";
 import { userSettings, saveUserSettings } from "@/globals/userSettings";
-import { changeLanguage } from "@/i18n/changeLanguage";
 import toggleMenu from "./toggleMenu";
 import { $widget } from "../widget/widget";
 
@@ -53,23 +50,6 @@ export default function renderMenu() {
             }
         });
     }
-
-    // *** Translations ***
-    if (!userSettings.lang && pluginConfig?.lang) {
-        userSettings.lang = pluginConfig.lang;
-    }
-
-    if (!LANGUAGES.some(lang => lang.code === userSettings.lang)) {
-        userSettings.lang = "en";
-    }
-
-    const $lang = $menu.querySelector("#accessibility-widget-language");
-    const langOptions = LANGUAGES.map((lang: ILanguage) => `<option value="${lang.code}">${lang.label}</option>`).join('');
-    $lang.innerHTML = langOptions;
-    $lang.value = userSettings.lang;
-    $lang.addEventListener("change", (event) => {
-        changeLanguage(event.target.value);
-    });
 
     // *** Utils ***
     $container.querySelectorAll('.accessibility-widget-menu-close, .accessibility-widget-overlay').forEach((el) =>

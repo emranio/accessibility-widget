@@ -2,7 +2,6 @@
 import template from "./widget.html";
 import css from "./widget.css";
 import { openMenu } from "../menu/menu";
-import translateWidget from "../menu/translateWidget";
 
 import {
     pluginConfig
@@ -25,8 +24,6 @@ export function renderWidget() {
 
         openMenu();
     });
-
-    translateWidget();
 
     document.body.appendChild($widget);
 

@@ -1,6 +1,5 @@
 import renderMenu from "./renderMenu";
 import toggleMenu from "./toggleMenu";
-import translateWidget from "./translateWidget";
 
 export let $menu;
 
@@ -10,6 +9,4 @@ export function openMenu() {
     } else {
         $menu = renderMenu();
     }
-    
-    translateWidget();
 }

@@ -9,7 +9,6 @@ import {
 import {
     pluginConfig
 } from "./globals/pluginConfig";
-import { changeLanguage } from "./i18n/changeLanguage";
 
 export default function accessibilityWidget({
     options
@@ -22,7 +21,5 @@ export default function accessibilityWidget({
     runAccessibility();
     renderWidget();
 
-    return {
-        changeLanguage
-    }
+    return {};
 }

@@ -19,8 +19,6 @@ The build outputs `dist/accessibility-widget.umd.js` (and `.esm.js` / `.cjs.js`)
 
 ## 🚀 Features
 
-✅ **Multilingual Support**: Supports multiple languages to ensure a seamless user experience for all users.
-
 ✅ **Dyslexia Font**:  Dyslexia font to make reading easier for dyslexic users.
 
 ✅ **Adjustable Font Size and Highlighting Text**: Users can easily adjust the font size and highlight text to their liking, making it easier to read content.
@@ -36,7 +34,6 @@ The build outputs `dist/accessibility-widget.umd.js` (and `.esm.js` / `.cjs.js`)
 - Voice Navigation
 - Position of Button
 - Inject Icon in code
-- Support More Languages
 
 ## 🤝 Contributing
 We welcome contributions from anyone who is interested in improving this. If you would like to contribute, please fork the repository and submit a pull request. ❤️
