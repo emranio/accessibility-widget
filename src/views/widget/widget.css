@@ -1,5 +1,5 @@
-.asw-widget,
-.asw-menu {
+.a11y-widget,
+.a11y-menu {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -8,12 +8,12 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.asw-widget *,
-.asw-menu * {
+.a11y-widget *,
+.a11y-menu * {
     box-sizing: border-box !important;
 }
 
-.asw-menu-btn {
+.a11y-menu-btn {
     position: fixed;
     z-index: 500000;
     left: 30px;
@@ -34,7 +34,7 @@
     background: linear-gradient(96deg, rgba(50,108,255,1) 0%, rgba(0,72,255,1) 100%) !important;
 }
 
-.asw-menu-btn svg {
+.a11y-menu-btn svg {
     width: 36px;
     height: 36px;
     min-height: 36px;
@@ -44,17 +44,17 @@
     background: transparent !important;
 }
 
-.asw-menu-btn:hover {
+.a11y-menu-btn:hover {
     transform: scale(1.05);
 }
 
 @media only screen and (max-width: 768px) {
-    .asw-menu-btn {
+    .a11y-menu-btn {
         width: 42px;
         height: 42px;
     }
 
-    .asw-menu-btn svg {
+    .a11y-menu-btn svg {
         width: 26px;
         height: 26px;
         min-height: 26px;

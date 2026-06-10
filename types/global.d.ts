@@ -2,7 +2,7 @@
 
 declare global {
   interface Window {
-    __asw__onScrollReadableGuide?: (event: Event) => void;
+    __a11y__onScrollReadableGuide?: (event: Event) => void;
   }
 }
 

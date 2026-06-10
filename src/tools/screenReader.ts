@@ -69,7 +69,7 @@ export default function screenReader() {
   return;
   /*
   if (enable) {
-    window.__asw__onClickScreenReader = (event) => {
+    window.__a11y__onClickScreenReader = (event) => {
       var clickedElement = event.target;
 
       if (!["BODY", "HEAD", "HTML"].includes(clickedElement.nodeName)) {
@@ -79,11 +79,11 @@ export default function screenReader() {
       }
     }
 
-    document.addEventListener('click', window.__asw__onClickScreenReader);
+    document.addEventListener('click', window.__a11y__onClickScreenReader);
   } else {
-    if (window.__asw__onClickScreenReader) {
-      document.removeEventListener('click', window.__asw__onClickScreenReader);
-      delete window.__asw__onClickScreenReader;
+    if (window.__a11y__onClickScreenReader) {
+      document.removeEventListener('click', window.__a11y__onClickScreenReader);
+      delete window.__a11y__onClickScreenReader;
     }
   }
     */

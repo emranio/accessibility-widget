@@ -1,4 +1,4 @@
-.asw-menu {
+.a11y-menu {
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@
     letter-spacing: 0.015em;
 }
 
-.asw-menu * {
+.a11y-menu * {
     color: #000 !important;
     font-family: inherit;
     padding: 0;
@@ -26,7 +26,7 @@
     letter-spacing: normal !important;
 }
 
-.asw-menu-header {
+.a11y-menu-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,12 +36,12 @@
     background-color: #0848ca !important;
 }
 
-.asw-menu-title {
+.a11y-menu-title {
     font-size: 16px !important;
     color: #fff !important;
 }
 
-.asw-menu-header svg {
+.a11y-menu-header svg {
     fill: #0848ca !important;
     width: 24px !important;
     height: 24px !important;
@@ -51,12 +51,12 @@
     max-height: 24px !important;
 }
 
-.asw-menu-header > div {
+.a11y-menu-header > div {
     display: flex;
 }
 
-.asw-menu-reset,
-.asw-menu-close {
+.a11y-menu-reset,
+.a11y-menu-close {
     padding: 5px !important;
     margin: 0 !important;
     background: white !important;
@@ -68,7 +68,7 @@
     outline: none !important;
 }
 
-.asw-menu-reset-footer-btn {
+.a11y-menu-reset-footer-btn {
     border-radius: 5px !important;
     width: 100% !important;
     font-size: 15px !important;
@@ -78,27 +78,27 @@
     color: #fff !important;
 }
 
-.asw-menu-reset:hover,
-.asw-menu-close:hover,
-.asw-menu-reset:focus,
-.asw-menu-close:focus,
-.asw-menu-reset-footer-btn:hover,
-.asw-menu-reset-footer-btn:focus {
+.a11y-menu-reset:hover,
+.a11y-menu-close:hover,
+.a11y-menu-reset:focus,
+.a11y-menu-close:focus,
+.a11y-menu-reset-footer-btn:hover,
+.a11y-menu-reset-footer-btn:focus {
     outline: 3px solid hsla(0,0%,100%,.4) !important;
 }
 
-.asw-card {
+.a11y-card {
     margin: 0 15px 20px;
 }
 
-.asw-card-title {
+.a11y-card-title {
     font-size: 14px !important;
     padding: 15px 0;
     font-weight: 600 !important;
     opacity: 0.8;
 }
 
-.asw-menu .asw-select {
+.a11y-menu .a11y-select {
     width: 100% !important;
     padding: 0px 15px!important;
     font-size: 16px !important;
@@ -113,13 +113,13 @@
     color: inherit !important;
 }
 
-.asw-items {
+.a11y-items {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
 }
 
-.asw-btn {
+.a11y-btn {
     aspect-ratio: 6 / 5;
     border-radius: 12px;
     padding: 0 15px;
@@ -141,31 +141,31 @@
     height: auto !important;
 }
 
-.asw-btn .asw-translate,
-.asw-adjust-font .asw-label div {
+.a11y-btn .a11y-translate,
+.a11y-adjust-font .a11y-label div {
     font-size: 14px !important;
     font-weight: 600 !important;
 }
 
-.asw-plus,
-.asw-minus {
+.a11y-plus,
+.a11y-minus {
     background-color: #eff1f5 !important;
     border: 2px solid transparent;
     transition: border .2s ease;
 }
 
 
-.asw-plus:hover,
-.asw-minus:hover {
+.a11y-plus:hover,
+.a11y-minus:hover {
     border-color: #0848ca !important;
 }
 
-.asw-amount {
+.a11y-amount {
     font-size: 18px !important;
     font-weight: 600 !important;
 }
 
-.asw-adjust-font svg{
+.a11y-adjust-font svg{
     width: 24px !important;
     height: 24px !important;
     min-width: 24px !important;
@@ -174,7 +174,7 @@
     max-height: 24px !important;
 }
 
-.asw-btn svg {
+.a11y-btn svg {
     width: 34px !important;
     height: 34px !important;
     min-width: 34px !important;
@@ -183,18 +183,18 @@
     max-height: 34px !important;
 }
 
-.asw-btn:hover,
-.asw-btn.asw-selected {
+.a11y-btn:hover,
+.a11y-btn.a11y-selected {
     border-color: #0848ca !important;
 }
 
-.asw-btn.asw-selected svg,
-.asw-btn.asw-selected span {
+.a11y-btn.a11y-selected svg,
+.a11y-btn.a11y-selected span {
     fill: #0848ca !important;
     color: #0848ca !important;
 }
 
-.asw-btn.asw-selected:after {
+.a11y-btn.a11y-selected:after {
     content: '';
     display: inline-block;
     background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20height%3D%2224px%22%20viewBox%3D%220%20-960%20960%20960%22%20width%3D%2224px%22%20fill%3D%22%23fff%22%3E%3Cpath%20d%3D%22M382-240%20154-468l57-57%20171%20171%20367-367%2057%2057-424%20424Z%22%2F%3E%3C%2Fsvg%3E');
@@ -213,7 +213,7 @@
     line-height: 6px;
 }
 
-.asw-footer {
+.a11y-footer {
     bottom: 0;
     left: 0;
     right: 0;
@@ -223,7 +223,7 @@
     border-top: 2px solid #eff1f5;
 }
 
-.asw-footer a {
+.a11y-footer a {
     font-size: 16px !important;
     text-decoration: none !important;
     color: #000 !important;
@@ -231,30 +231,30 @@
     font-weight: 600 !important;
 }
 
-.asw-footer a:hover,
-.asw-footer a:hover span {
+.a11y-footer a:hover,
+.a11y-footer a:hover span {
     color: #0848ca!important;
 }
 
-.asw-menu-content {
+.a11y-menu-content {
     flex: 1;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 30px 0 15px;
 }
 
-.asw-adjust-font {
+.a11y-adjust-font {
     background: #fff;
     padding: 20px;
     margin-bottom: 20px;
 }
 
-.asw-adjust-font .asw-label {
+.a11y-adjust-font .a11y-label {
     display: flex;
     justify-content: flex-start;
 }
 
-.asw-adjust-font > div {
+.a11y-adjust-font > div {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -262,11 +262,11 @@
     font-size: 15px;
 }
 
-.asw-adjust-font .asw-label div {
+.a11y-adjust-font .a11y-label div {
     font-size: 15px !important;
 }
 
-.asw-adjust-font div[role="button"] {
+.a11y-adjust-font div[role="button"] {
     background: #eff1f5 !important;
     border-radius: 50%;
     width: 36px;
@@ -277,7 +277,7 @@
     cursor: pointer;
 }
 
-.asw-overlay {
+.a11y-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -287,13 +287,13 @@
 }
 
 @media only screen and (max-width: 560px) {
-    .asw-menu {
+    .a11y-menu {
         width: 100%;
     }
 }
 
 @media only screen and (max-width: 420px) {
-    .asw-items {
+    .a11y-items {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 0.5rem;
     }

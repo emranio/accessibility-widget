@@ -12,10 +12,10 @@ export let $widget: HTMLElement;
 
 export function renderWidget() {
     $widget = document.createElement("div");
-    $widget.classList.add("asw-container");
+    $widget.classList.add("a11y-container");
     $widget.innerHTML = `<style>${css}</style>${template}`;
 
-    const $btn: HTMLElement = $widget.querySelector(".asw-menu-btn");
+    const $btn: HTMLElement = $widget.querySelector(".a11y-menu-btn");
     Object.assign($btn.style, getButtonStyle());
     
     $btn?.addEventListener("click", (event) => {

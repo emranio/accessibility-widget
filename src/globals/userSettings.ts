@@ -6,7 +6,7 @@ export const userSettings = {
   states: {}
 };
 
-export const STORAGE_KEY = "asw-user-settings";
+export const STORAGE_KEY = "a11y-user-settings";
 
 export function setUserStateSettings(state) {
     userSettings.states = {
