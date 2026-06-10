@@ -2,7 +2,7 @@ import {
     ICON_SELECTOR
 } from '@/enum/Selectors';
 
-const FONT_SIZE_SELECTOR = 'h1,h2,h3,h4,h5,h6,p,a,dl,dt,li,ol,th,td,span,blockquote,.a11y-text';
+const FONT_SIZE_SELECTOR = 'h1,h2,h3,h4,h5,h6,p,a,dl,dt,li,ol,th,td,span,blockquote,.accessibility-widget-text';
 const ICON_SELECTOR_SET = new Set(ICON_SELECTOR);
 
 export default function adjustFontSize(multiply:number = 1) {
@@ -15,11 +15,11 @@ export default function adjustFontSize(multiply:number = 1) {
             }
 
             // Get the original font size
-            const orgFontSize = Number(el.dataset.a11yOrgFontSize) || parseInt(window.getComputedStyle(el).fontSize);
+            const orgFontSize = Number(el.dataset.accessibilityWidgetOrgFontSize) || parseInt(window.getComputedStyle(el).fontSize);
 
             // If no font size stored in data, set it now
-            if (!el.dataset.a11yOrgFontSize) {
-                el.dataset.a11yOrgFontSize = String(orgFontSize);
+            if (!el.dataset.accessibilityWidgetOrgFontSize) {
+                el.dataset.accessibilityWidgetOrgFontSize = String(orgFontSize);
             }
 
             // Calculate and apply new font size

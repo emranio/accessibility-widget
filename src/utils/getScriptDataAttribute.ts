@@ -1,5 +1,5 @@
 export function getScriptDataAttribute(attr) {
-    const key = `data-a11y-${attr}`;
+    const key = `data-accessibility-widget-${attr}`;
 
     const script = document.currentScript;
     if (script?.hasAttribute(key)) {

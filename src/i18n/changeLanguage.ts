@@ -16,7 +16,7 @@ export function changeLanguage(newLang) {
     if (userSettings.lang !== newLang) {
         userSettings.lang = newLang;
 
-        const $lang = $menu.querySelector("#a11y-language");
+        const $lang = $menu.querySelector("#accessibility-widget-language");
         if ($lang) {
             $lang.value = newLang;
         }

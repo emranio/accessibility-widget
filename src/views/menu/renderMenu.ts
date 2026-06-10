@@ -24,32 +24,32 @@ export default function renderMenu() {
     const $container: HTMLElement = document.createElement("div");
     $container.innerHTML = `<style>${css}</style>` + template;
 
-    const $menu = $container.querySelector(".a11y-menu");
+    const $menu = $container.querySelector(".accessibility-widget-menu");
     if (pluginConfig?.position?.includes("right")) {
         $menu.style.right = '0px';
         $menu.style.left = 'auto';
     }
 
     $menu.querySelector(".content").innerHTML = renderButtons(ContentButtons);
-    $menu.querySelector(".tools").innerHTML = renderButtons(ToolButtons, 'a11y-tools');
-    $menu.querySelector(".contrast").innerHTML = renderButtons(FilterButtons, 'a11y-filter');
+    $menu.querySelector(".tools").innerHTML = renderButtons(ToolButtons, 'accessibility-widget-tools');
+    $menu.querySelector(".contrast").innerHTML = renderButtons(FilterButtons, 'accessibility-widget-filter');
 
     // *** States UI Rendering ***
     const states = userSettings?.states;
 
     const fontSize = Number(states?.fontSize) || 1;
     if (fontSize != 1) {
-        $menu.querySelector(".a11y-amount").innerHTML = `${fontSize * 100}%`;
+        $menu.querySelector(".accessibility-widget-amount").innerHTML = `${fontSize * 100}%`;
     }
 
     if (states) {
-        const buttons = Array.from($menu.querySelectorAll('.a11y-btn'));
+        const buttons = Array.from($menu.querySelectorAll('.accessibility-widget-btn'));
 
         Object.entries(states).forEach(([key, value]) => {
             if (value && key !== "fontSize") {
                 const selector = key === "contrast" ? states[key] : key;
                 const btn = buttons.find(b => b.dataset.key === selector);
-                if (btn) btn.classList.add("a11y-selected");
+                if (btn) btn.classList.add("accessibility-widget-selected");
             }
         });
     }
@@ -63,7 +63,7 @@ export default function renderMenu() {
         userSettings.lang = "en";
     }
 
-    const $lang = $menu.querySelector("#a11y-language");
+    const $lang = $menu.querySelector("#accessibility-widget-language");
     const langOptions = LANGUAGES.map((lang: ILanguage) => `<option value="${lang.code}">${lang.label}</option>`).join('');
     $lang.innerHTML = langOptions;
     $lang.value = userSettings.lang;
@@ -72,21 +72,21 @@ export default function renderMenu() {
     });
 
     // *** Utils ***
-    $container.querySelectorAll('.a11y-menu-close, .a11y-overlay').forEach((el) =>
+    $container.querySelectorAll('.accessibility-widget-menu-close, .accessibility-widget-overlay').forEach((el) =>
         el.addEventListener('click', toggleMenu)
     );
 
-    $container.querySelectorAll('.a11y-menu-reset').forEach((el) =>
+    $container.querySelectorAll('.accessibility-widget-menu-reset').forEach((el) =>
         el.addEventListener('click', reset)
     );
 
     // *** Controls ***
-    $menu.querySelectorAll(".a11y-plus, .a11y-minus").forEach((el: HTMLElement) => {
+    $menu.querySelectorAll(".accessibility-widget-plus, .accessibility-widget-minus").forEach((el: HTMLElement) => {
         el.addEventListener("click", () => {
             const difference = 0.1;
 
             let fontSize = userSettings?.states?.fontSize || 1;
-            if (el.classList.contains('a11y-minus')) {
+            if (el.classList.contains('accessibility-widget-minus')) {
                 fontSize -= difference;
             } else {
                 fontSize += difference;
@@ -96,7 +96,7 @@ export default function renderMenu() {
             fontSize = Math.min(fontSize, 2);
             fontSize = Number(fontSize.toFixed(2));
 
-            document.querySelector(".a11y-amount").textContent = `${(fontSize * 100).toFixed(0)}%`;
+            document.querySelector(".accessibility-widget-amount").textContent = `${(fontSize * 100).toFixed(0)}%`;
 
             adjustFontSize(fontSize);
             userSettings.states.fontSize = fontSize;
@@ -105,19 +105,19 @@ export default function renderMenu() {
         });
     });
 
-    $menu.querySelectorAll(".a11y-btn").forEach((el: HTMLElement) => {
+    $menu.querySelectorAll(".accessibility-widget-btn").forEach((el: HTMLElement) => {
         el.addEventListener("click", () => {
             const key = el.dataset.key;
-            const isSelected = !el.classList.contains("a11y-selected");
+            const isSelected = !el.classList.contains("accessibility-widget-selected");
             
             // --- Contrast ---
-            if (el.classList.contains("a11y-filter")) {
-                $menu.querySelectorAll(".a11y-filter").forEach((el: HTMLElement) =>
-                    el.classList.remove("a11y-selected")
+            if (el.classList.contains("accessibility-widget-filter")) {
+                $menu.querySelectorAll(".accessibility-widget-filter").forEach((el: HTMLElement) =>
+                    el.classList.remove("accessibility-widget-selected")
                 );
 
                 if (isSelected) {
-                    el.classList.add("a11y-selected");
+                    el.classList.add("accessibility-widget-selected");
                 }
 
                 userSettings.states.contrast = isSelected ? key : false;
@@ -128,7 +128,7 @@ export default function renderMenu() {
                 return;
             }
             
-            el.classList.toggle("a11y-selected", isSelected);
+            el.classList.toggle("accessibility-widget-selected", isSelected);
             userSettings.states[key] = isSelected;
             renderTools();
 

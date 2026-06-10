@@ -65,7 +65,7 @@ export function injectToolCSS(config: IToolConfig) {
         enable=false
     } = config;
 
-    const toolId = `a11y-${ id }`
+    const toolId = `accessibility-widget-${ id }`
 
     if(enable) {
         const css = generateCSSFromConfig(config);

@@ -2,7 +2,7 @@
 
 declare global {
   interface Window {
-    __a11y__onScrollReadableGuide?: (event: Event) => void;
+    __accessibilityWidget__onScrollReadableGuide?: (event: Event) => void;
   }
 }
 

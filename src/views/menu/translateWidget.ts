@@ -12,7 +12,7 @@ function getTranslatedLabel(el: Element, defaultValue: string): string {
 }
 
 export default function translateWidget(): void {
-    $widget.querySelectorAll(".a11y-card-title, .a11y-translate").forEach((el) => {
+    $widget.querySelectorAll(".accessibility-widget-card-title, .accessibility-widget-translate").forEach((el) => {
         const text = el.textContent?.trim() || "";
         el.textContent = getTranslatedLabel(el, text);
     });
