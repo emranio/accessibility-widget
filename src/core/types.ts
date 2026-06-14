@@ -81,9 +81,6 @@ export interface PageStructureData {
   links: PageStructureItem[]
 }
 
-export type AccessifyConfig = AccessibilityWidgetConfig
-export type AccessifyState = AccessibilityWidgetState
-
 export const DEFAULT_STATE: AccessibilityWidgetState = {
   profile: null,
   fontSize: 0,

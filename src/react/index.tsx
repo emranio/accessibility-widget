@@ -3,8 +3,6 @@ import {
   AccessibilityWidget as AccessibilityWidgetCore,
   type AccessibilityWidgetConfig,
   type AccessibilityWidgetState,
-  type AccessifyConfig,
-  type AccessifyState,
 } from '../core'
 
 export type AccessibilityWidgetProps = AccessibilityWidgetConfig
@@ -65,7 +63,6 @@ export function AccessibilityWidget(props: AccessibilityWidgetProps) {
 }
 
 export const ReactAccessibilityWidget = AccessibilityWidget
-export const AccessifyWidget = AccessibilityWidget
 
 export function useAccessibilityWidget(config: AccessibilityWidgetConfig = {}) {
   const instanceRef = useRef<AccessibilityWidgetCore | null>(null)
@@ -120,11 +117,7 @@ export function useAccessibilityWidget(config: AccessibilityWidgetConfig = {}) {
   return { open, close, toggle, reset, setTitle, setAccentColor, setTheme, state, isOpen }
 }
 
-export const useAccessify = useAccessibilityWidget
-
 export type {
   AccessibilityWidgetConfig,
   AccessibilityWidgetState,
-  AccessifyConfig,
-  AccessifyState,
 } from '../core'

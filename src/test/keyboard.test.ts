@@ -14,7 +14,7 @@ afterEach(() => {
 describe('injectSkipLink', () => {
   it('does nothing when no main landmark exists', () => {
     injectSkipLink()
-    expect(document.getElementById('accessify-skip-link')).toBeNull()
+    expect(document.getElementById('accessibility-widget-skip-link')).toBeNull()
   })
 
   it('injects skip link when <main> exists', () => {
@@ -22,7 +22,7 @@ describe('injectSkipLink', () => {
     main.id = 'main'
     document.body.appendChild(main)
     injectSkipLink()
-    const link = document.getElementById('accessify-skip-link') as HTMLAnchorElement
+    const link = document.getElementById('accessibility-widget-skip-link') as HTMLAnchorElement
     expect(link).not.toBeNull()
     expect(link.href).toContain('#main')
   })
@@ -33,16 +33,16 @@ describe('injectSkipLink', () => {
     div.id = 'content'
     document.body.appendChild(div)
     injectSkipLink()
-    expect(document.getElementById('accessify-skip-link')).not.toBeNull()
+    expect(document.getElementById('accessibility-widget-skip-link')).not.toBeNull()
   })
 
   it('assigns an id to main if it has none', () => {
     const main = document.createElement('main')
     document.body.appendChild(main)
     injectSkipLink()
-    expect(main.id).toBe('acc-main-content')
-    const link = document.getElementById('accessify-skip-link') as HTMLAnchorElement
-    expect(link.href).toContain('#acc-main-content')
+    expect(main.id).toBe('accessibility-widget-main-content')
+    const link = document.getElementById('accessibility-widget-skip-link') as HTMLAnchorElement
+    expect(link.href).toContain('#accessibility-widget-main-content')
   })
 
   it('is idempotent — calling twice injects only one link', () => {
@@ -51,7 +51,7 @@ describe('injectSkipLink', () => {
     document.body.appendChild(main)
     injectSkipLink()
     injectSkipLink()
-    expect(document.querySelectorAll('#accessify-skip-link')).toHaveLength(1)
+    expect(document.querySelectorAll('#accessibility-widget-skip-link')).toHaveLength(1)
   })
 
   it('inserts skip link as first child of body', () => {
@@ -61,7 +61,7 @@ describe('injectSkipLink', () => {
     main.id = 'main'
     document.body.appendChild(main)
     injectSkipLink()
-    expect(document.body.firstElementChild?.id).toBe('accessify-skip-link')
+    expect(document.body.firstElementChild?.id).toBe('accessibility-widget-skip-link')
   })
 })
 
@@ -72,7 +72,7 @@ describe('removeSkipLink', () => {
     document.body.appendChild(main)
     injectSkipLink()
     removeSkipLink()
-    expect(document.getElementById('accessify-skip-link')).toBeNull()
+    expect(document.getElementById('accessibility-widget-skip-link')).toBeNull()
   })
 
   it('is safe to call when skip link does not exist', () => {

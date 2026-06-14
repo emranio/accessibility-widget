@@ -1,17 +1,17 @@
 import { ICONS } from './icons'
 import { getTranslations } from './i18n'
 import { TEXT_ALIGNMENT_MAX_LEVEL, TOOL_MAX_LEVELS, type LevelToolKey } from './tool-levels'
-import type { AccessibilityProfile, AccessifyState, Lang, TextAlignment, WidgetSize } from './types'
+import type { AccessibilityProfile, AccessibilityWidgetState, Lang, TextAlignment, WidgetSize } from './types'
 
 function sizeSwitch(active: WidgetSize, label: string): string {
   const isXl = active === 'XL'
   const nextSize: WidgetSize = isXl ? 'S' : 'XL'
   return `
-    <button type="button" class="accessify-size-switch" role="switch" data-size="${nextSize}" aria-checked="${isXl}" aria-label="${label}">
-      <span class="accessify-size-switch-track" aria-hidden="true">
-        <span class="accessify-size-switch-option accessify-size-switch-option--s">S</span>
-        <span class="accessify-size-switch-option accessify-size-switch-option--l">L</span>
-        <span class="accessify-size-switch-thumb"></span>
+    <button type="button" class="accessibility-widget-size-switch" role="switch" data-size="${nextSize}" aria-checked="${isXl}" aria-label="${label}">
+      <span class="accessibility-widget-size-switch-track" aria-hidden="true">
+        <span class="accessibility-widget-size-switch-option accessibility-widget-size-switch-option--s">S</span>
+        <span class="accessibility-widget-size-switch-option accessibility-widget-size-switch-option--l">L</span>
+        <span class="accessibility-widget-size-switch-thumb"></span>
       </span>
     </button>
   `
@@ -28,7 +28,7 @@ function escapeHtml(value: string): string {
 
 function profileCard(id: AccessibilityProfile, label: string, icon: string, active: boolean): string {
   return `
-    <button class="accessify-card" type="button" data-profile="${id}" aria-pressed="${active}">
+    <button class="accessibility-widget-card" type="button" data-profile="${id}" aria-pressed="${active}">
       <span class="icon">${icon}</span>
       <span class="label">${label}</span>
     </button>
@@ -38,9 +38,9 @@ function profileCard(id: AccessibilityProfile, label: string, icon: string, acti
 function levelBars(level: number, maxLevel: number): string {
   if (maxLevel <= 1) return ''
   return `
-    <div class="accessify-levels" aria-hidden="true">
+    <div class="accessibility-widget-levels" aria-hidden="true">
       ${Array.from({ length: maxLevel }, (_, index) => `
-        <span class="accessify-level${index + 1 === level ? ' active' : ''}"></span>
+        <span class="accessibility-widget-level${index + 1 === level ? ' active' : ''}"></span>
       `).join('')}
     </div>
   `
@@ -54,7 +54,7 @@ function toolTile(opts: {
     ? (level > 0 ? 'On' : 'Off')
     : (level > 0 ? `Level ${level} of ${maxLevel}` : 'Off')
   return `
-    <button class="accessify-tile" type="button" data-tool="${key}" data-level="${level}" data-max-level="${maxLevel}" aria-pressed="${level > 0}" aria-label="${label}, ${ariaLevel}">
+    <button class="accessibility-widget-tile" type="button" data-tool="${key}" data-level="${level}" data-max-level="${maxLevel}" aria-pressed="${level > 0}" aria-label="${label}, ${ariaLevel}">
       <span class="icon">${icon}</span>
       <span class="label">${label}</span>
       ${levelBars(level, maxLevel)}
@@ -62,11 +62,11 @@ function toolTile(opts: {
   `
 }
 
-function adjustmentTile(state: AccessifyState, key: LevelToolKey, icon: string, label: string): string {
+function adjustmentTile(state: AccessibilityWidgetState, key: LevelToolKey, icon: string, label: string): string {
   return toolTile({ key, icon, label, level: state[key] as number, maxLevel: TOOL_MAX_LEVELS[key] })
 }
 
-function legibleFontsTile(state: AccessifyState, t: ReturnType<typeof getTranslations>): string {
+function legibleFontsTile(state: AccessibilityWidgetState, t: ReturnType<typeof getTranslations>): string {
   const isDyslexiaFriendly = state.legibleFonts === 1
   return adjustmentTile(
     state,
@@ -93,7 +93,7 @@ function alignmentIcon(active: TextAlignment): string {
 
 
 export function renderPanel(
-  state: AccessifyState,
+  state: AccessibilityWidgetState,
   size: WidgetSize,
   lang: Lang = 'en',
   options: { pageStructureOpen?: boolean; title?: string } = {},
@@ -114,42 +114,42 @@ export function renderPanel(
   const dir = lang === 'ar' ? ' dir="rtl"' : ''
 
   return `
-    <div class="accessify-header"${dir}>
-      <div class="accessify-header-left">
-        <div class="accessify-header-icon">${ICONS.wheelchair}</div>
-        <div class="accessify-header-text">
-          <div class="accessify-header-title">${title}</div>
-          <div class="accessify-header-sub">${t.subtitle}</div>
+    <div class="accessibility-widget-header"${dir}>
+      <div class="accessibility-widget-header-left">
+        <div class="accessibility-widget-header-icon">${ICONS.wheelchair}</div>
+        <div class="accessibility-widget-header-text">
+          <div class="accessibility-widget-header-title">${title}</div>
+          <div class="accessibility-widget-header-sub">${t.subtitle}</div>
         </div>
       </div>
-      <div class="accessify-header-actions">
-        <button type="button" class="accessify-icon-btn accessify-close" aria-label="${t.close}">${ICONS.close}</button>
+      <div class="accessibility-widget-header-actions">
+        <button type="button" class="accessibility-widget-icon-btn accessibility-widget-close" aria-label="${t.close}">${ICONS.close}</button>
       </div>
     </div>
 
-    <div class="accessify-body"${dir}>
+    <div class="accessibility-widget-body"${dir}>
 
-      <div class="accessify-section accessify-section--compact">
-        <div class="accessify-section-head">
-          <span class="accessify-section-title">${t.widgetSize}</span>
+      <div class="accessibility-widget-section accessibility-widget-section--compact">
+        <div class="accessibility-widget-section-head">
+          <span class="accessibility-widget-section-title">${t.widgetSize}</span>
           ${sizeSwitch(size, t.xlSize)}
         </div>
       </div>
 
-      <div class="accessify-section">
-        <div class="accessify-section-head">
-          <span class="accessify-section-title">${t.profiles}</span>
+      <div class="accessibility-widget-section">
+        <div class="accessibility-widget-section-head">
+          <span class="accessibility-widget-section-title">${t.profiles}</span>
         </div>
-        <div class="accessify-grid">
+        <div class="accessibility-widget-grid">
           ${PROFILES.map(p => profileCard(p.id, p.label, p.icon, state.profile === p.id)).join('')}
         </div>
       </div>
 
-      <div class="accessify-section">
-        <div class="accessify-section-head">
-          <span class="accessify-section-title">${t.contentAdjustments}</span>
+      <div class="accessibility-widget-section">
+        <div class="accessibility-widget-section-head">
+          <span class="accessibility-widget-section-title">${t.contentAdjustments}</span>
         </div>
-        <div class="accessify-grid accessify-grid-3">
+        <div class="accessibility-widget-grid accessibility-widget-grid-3">
           ${legibleFontsTile(state, t)}
           ${adjustmentTile(state, 'highlightTitles', ICONS.highlightTitles,t.highlightTitles)}
           ${adjustmentTile(state, 'fontSize',        ICONS.fontSizing,     t.fontSize)}
@@ -166,11 +166,11 @@ export function renderPanel(
         </div>
       </div>
 
-      <div class="accessify-section">
-        <div class="accessify-section-head">
-          <span class="accessify-section-title">${t.colorAdjustments}</span>
+      <div class="accessibility-widget-section">
+        <div class="accessibility-widget-section-head">
+          <span class="accessibility-widget-section-title">${t.colorAdjustments}</span>
         </div>
-        <div class="accessify-grid accessify-grid-3">
+        <div class="accessibility-widget-grid accessibility-widget-grid-3">
           ${adjustmentTile(state, 'darkContrast', ICONS.darkContrast, t.darkContrast)}
           ${adjustmentTile(state, 'lightContrast', ICONS.lightContrast, t.lightContrast)}
           ${adjustmentTile(state, 'highContrast', ICONS.highContrast, t.highContrast)}
@@ -184,8 +184,8 @@ export function renderPanel(
 
     </div>
 
-    <div class="accessify-reset-bar"${dir}>
-      <button type="button" class="accessify-reset-btn" data-action="reset" aria-label="${t.resetAll}">
+    <div class="accessibility-widget-reset-bar"${dir}>
+      <button type="button" class="accessibility-widget-reset-btn" data-action="reset" aria-label="${t.resetAll}">
         ${ICONS.reset}
         ${t.resetAll}
       </button>

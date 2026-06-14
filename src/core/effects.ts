@@ -1,8 +1,8 @@
-import type { AccessifyState } from './types'
+import type { AccessibilityWidgetState } from './types'
 
-const HOST_STYLE_ID = 'accessify-host-effects'
-export const HOST_WRAPPER_ID = 'accessify-host'
-const COLOR_BLIND_FILTER_ID = 'acc-protanopia-filter'
+const HOST_STYLE_ID = 'accessibility-widget-host-effects'
+export const HOST_WRAPPER_ID = 'accessibility-widget-host'
+const COLOR_BLIND_FILTER_ID = 'accessibility-widget-protanopia-filter'
 
 function ensureColorBlindFilter(): void {
   if (document.getElementById(COLOR_BLIND_FILTER_ID)) return
@@ -12,7 +12,7 @@ function ensureColorBlindFilter(): void {
   svg.style.cssText = 'position:absolute;width:0;height:0;pointer-events:none;'
   svg.innerHTML = `
     <defs>
-      <filter id="acc-protanopia">
+      <filter id="accessibility-widget-protanopia">
         <feColorMatrix type="matrix" values="
           0.567 0.433 0 0 0
           0.558 0.442 0 0 0
@@ -42,7 +42,7 @@ export function ensureHostWrapper(): HTMLDivElement {
   const body = document.body
   const moved: Node[] = []
   for (const node of Array.from(body.childNodes)) {
-    if (node instanceof HTMLElement && (node.classList.contains('accessify-root') || node.id === HOST_WRAPPER_ID)) {
+    if (node instanceof HTMLElement && (node.classList.contains('accessibility-widget-root') || node.id === HOST_WRAPPER_ID)) {
       continue
     }
     moved.push(node)
@@ -116,12 +116,12 @@ function bigCursorValue(level: number): string {
 }
 
 function legibleFontFamily(level: number): string | null {
-  if (level === 1) return '"Accessify Lexend"'
-  if (level === 2) return '"Accessify Atkinson Hyperlegible"'
+  if (level === 1) return '"Accessibility Widget Lexend"'
+  if (level === 2) return '"Accessibility Widget Atkinson Hyperlegible"'
   return null
 }
 
-function dynamicCss(state: AccessifyState): string {
+function dynamicCss(state: AccessibilityWidgetState): string {
   const rules: string[] = []
   const scope = `#${HOST_WRAPPER_ID}`
 
@@ -143,7 +143,7 @@ function dynamicCss(state: AccessifyState): string {
   }
   if (state.bigCursor !== 0) {
     const cursor = bigCursorValue(state.bigCursor)
-    rules.push(`html, body, ${scope}, ${scope} *, .accessify-root, .accessify-root * { cursor: ${cursor} !important; }`)
+    rules.push(`html, body, ${scope}, ${scope} *, .accessibility-widget-root, .accessibility-widget-root * { cursor: ${cursor} !important; }`)
   }
   return rules.join('\n')
 }
@@ -214,7 +214,7 @@ function enableMagnifier(level: number): void {
     return
   }
   magnifierEl = document.createElement('div')
-  magnifierEl.className = 'acc-magnify-cursor'
+  magnifierEl.className = 'accessibility-widget-magnify-cursor'
   magnifierEl.style.display = 'none'
   document.body.appendChild(magnifierEl)
   updateMagnifierAppearance(level)
@@ -222,7 +222,7 @@ function enableMagnifier(level: number): void {
   magnifierHandler = (e: MouseEvent) => {
     if (!magnifierEl) return
     const el = document.elementFromPoint(e.clientX, e.clientY)
-    if (!el || el.closest('.accessify-root') || el.closest('.acc-magnify-cursor')) {
+    if (!el || el.closest('.accessibility-widget-root') || el.closest('.accessibility-widget-magnify-cursor')) {
       magnifierEl.style.display = 'none'
       return
     }
@@ -301,7 +301,7 @@ function snapshotHostIntoLens(): void {
   clone.style.width = `${rect.width}px`
   clone.style.pointerEvents = 'none'
   // Strip interactive cloned widgets that would re-mount/clash
-  clone.querySelectorAll('.accessify-root, .acc-reading-lens, script, iframe').forEach(n => n.remove())
+  clone.querySelectorAll('.accessibility-widget-root, .accessibility-widget-reading-lens, script, iframe').forEach(n => n.remove())
   // Mirror live input/textarea values onto the clone (cloneNode doesn't
   // copy the IDL value property, only the initial defaultValue attribute).
   const liveInputs = host.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea')
@@ -357,7 +357,7 @@ function enableReadingLens(level: number): void {
     return
   }
   lensEl = document.createElement('div')
-  lensEl.className = 'acc-reading-lens'
+  lensEl.className = 'accessibility-widget-reading-lens'
   lensEl.setAttribute('aria-hidden', 'true')
   lensEl.style.display = 'none'
   lensEl.style.left = '0'
@@ -365,7 +365,7 @@ function enableReadingLens(level: number): void {
   lensEl.style.willChange = 'transform'
 
   lensInner = document.createElement('div')
-  lensInner.className = 'acc-reading-lens-inner'
+  lensInner.className = 'accessibility-widget-reading-lens-inner'
   lensInner.style.willChange = 'transform'
   lensEl.appendChild(lensInner)
 
@@ -376,7 +376,7 @@ function enableReadingLens(level: number): void {
   lensMoveHandler = (e: MouseEvent) => {
     if (!lensEl) return
     const target = e.target as Element | null
-    if (target?.closest('.accessify-root')) {
+    if (target?.closest('.accessibility-widget-root')) {
       if (lensVisible) {
         lensEl.style.display = 'none'
         lensVisible = false
@@ -432,8 +432,8 @@ function updateReadingMaskAppearance(level: number): void {
   readingMaskLevel = level
   const preset = READING_MASK_PRESETS[presetIndex(level, READING_MASK_PRESETS.length)]
   readingMaskEl.dataset.level = String(level)
-  readingMaskEl.style.setProperty('--acc-reading-mask-opacity', String(preset.opacity))
-  readingMaskEl.style.setProperty('--acc-reading-mask-edge', preset.edge)
+  readingMaskEl.style.setProperty('--accessibility-widget-reading-mask-opacity', String(preset.opacity))
+  readingMaskEl.style.setProperty('--accessibility-widget-reading-mask-edge', preset.edge)
 }
 
 function positionReadingMask(y: number): void {
@@ -449,13 +449,13 @@ function positionReadingMask(y: number): void {
 function enableReadingMask(level: number): void {
   if (!readingMaskEl) {
     readingMaskEl = document.createElement('div')
-    readingMaskEl.className = 'acc-reading-mask'
+    readingMaskEl.className = 'accessibility-widget-reading-mask'
     readingMaskEl.setAttribute('aria-hidden', 'true')
 
     readingMaskTopEl = document.createElement('div')
-    readingMaskTopEl.className = 'acc-reading-mask-panel acc-reading-mask-top'
+    readingMaskTopEl.className = 'accessibility-widget-reading-mask-panel accessibility-widget-reading-mask-top'
     readingMaskBottomEl = document.createElement('div')
-    readingMaskBottomEl.className = 'acc-reading-mask-panel acc-reading-mask-bottom'
+    readingMaskBottomEl.className = 'accessibility-widget-reading-mask-panel accessibility-widget-reading-mask-bottom'
 
     readingMaskEl.append(readingMaskTopEl, readingMaskBottomEl)
     document.body.appendChild(readingMaskEl)
@@ -503,11 +503,11 @@ function updateReadingGuideAppearance(level: number): void {
   readingGuideLevel = level
   const preset = READING_GUIDE_PRESETS[presetIndex(level, READING_GUIDE_PRESETS.length)]
   readingGuideEl.dataset.level = String(level)
-  readingGuideEl.style.setProperty('--acc-reading-guide-height', `${preset.height}px`)
-  readingGuideEl.style.setProperty('--acc-reading-guide-border', `${preset.border}px`)
-  readingGuideEl.style.setProperty('--acc-reading-guide-fill', preset.fill)
-  readingGuideEl.style.setProperty('--acc-reading-guide-edge', preset.edge)
-  readingGuideEl.style.setProperty('--acc-reading-guide-glow', preset.glow)
+  readingGuideEl.style.setProperty('--accessibility-widget-reading-guide-height', `${preset.height}px`)
+  readingGuideEl.style.setProperty('--accessibility-widget-reading-guide-border', `${preset.border}px`)
+  readingGuideEl.style.setProperty('--accessibility-widget-reading-guide-fill', preset.fill)
+  readingGuideEl.style.setProperty('--accessibility-widget-reading-guide-edge', preset.edge)
+  readingGuideEl.style.setProperty('--accessibility-widget-reading-guide-glow', preset.glow)
 }
 
 function positionReadingGuide(x: number, y: number): void {
@@ -516,16 +516,16 @@ function positionReadingGuide(x: number, y: number): void {
   const totalHeight = preset.height + preset.border * 2
   const top = Math.max(0, Math.min(window.innerHeight - totalHeight, y - totalHeight / 2))
   readingGuideEl.style.top = `${top}px`
-  readingGuideEl.style.setProperty('--acc-reading-guide-x', `${x}px`)
+  readingGuideEl.style.setProperty('--accessibility-widget-reading-guide-x', `${x}px`)
 }
 
 function enableReadingGuide(level: number): void {
   if (!readingGuideEl) {
     readingGuideEl = document.createElement('div')
-    readingGuideEl.className = 'acc-reading-guide'
+    readingGuideEl.className = 'accessibility-widget-reading-guide'
     readingGuideEl.setAttribute('aria-hidden', 'true')
     readingGuidePointerEl = document.createElement('span')
-    readingGuidePointerEl.className = 'acc-reading-guide-pointer'
+    readingGuidePointerEl.className = 'accessibility-widget-reading-guide-pointer'
     readingGuideEl.appendChild(readingGuidePointerEl)
     document.body.appendChild(readingGuideEl)
 
@@ -565,60 +565,60 @@ function setWrapperVar(wrapper: HTMLElement, name: string, value: string | null)
   else wrapper.style.setProperty(name, value)
 }
 
-function syncWrapperVars(wrapper: HTMLElement, state: AccessifyState): void {
-  setWrapperVar(wrapper, '--acc-legible-font-family', legibleFontFamily(state.legibleFonts))
-  setWrapperVar(wrapper, '--acc-legible-word-spacing', state.legibleFonts > 0 ? `${state.legibleFonts === 1 ? 0.03 : 0.015}em` : null)
-  setWrapperVar(wrapper, '--acc-legible-letter-spacing', state.legibleFonts > 0 ? `${state.legibleFonts === 1 ? 0.02 : 0.005}em` : null)
-  setWrapperVar(wrapper, '--acc-title-outline-width', state.highlightTitles > 0 ? `${state.highlightTitles}px` : null)
-  setWrapperVar(wrapper, '--acc-title-highlight-alpha', state.highlightTitles > 0 ? `${0.04 + state.highlightTitles * 0.03}` : null)
-  setWrapperVar(wrapper, '--acc-link-outline-width', state.highlightLinks > 0 ? `${state.highlightLinks}px` : null)
-  setWrapperVar(wrapper, '--acc-link-highlight-alpha', state.highlightLinks > 0 ? `${0.04 + state.highlightLinks * 0.03}` : null)
-  setWrapperVar(wrapper, '--acc-link-underline-width', state.highlightLinks > 0 ? `${state.highlightLinks}px` : null)
+function syncWrapperVars(wrapper: HTMLElement, state: AccessibilityWidgetState): void {
+  setWrapperVar(wrapper, '--accessibility-widget-legible-font-family', legibleFontFamily(state.legibleFonts))
+  setWrapperVar(wrapper, '--accessibility-widget-legible-word-spacing', state.legibleFonts > 0 ? `${state.legibleFonts === 1 ? 0.03 : 0.015}em` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-legible-letter-spacing', state.legibleFonts > 0 ? `${state.legibleFonts === 1 ? 0.02 : 0.005}em` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-title-outline-width', state.highlightTitles > 0 ? `${state.highlightTitles}px` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-title-highlight-alpha', state.highlightTitles > 0 ? `${0.04 + state.highlightTitles * 0.03}` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-link-outline-width', state.highlightLinks > 0 ? `${state.highlightLinks}px` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-link-highlight-alpha', state.highlightLinks > 0 ? `${0.04 + state.highlightLinks * 0.03}` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-link-underline-width', state.highlightLinks > 0 ? `${state.highlightLinks}px` : null)
 
   const dark = state.darkContrast > 0 ? DARK_CONTRAST_PRESETS[state.darkContrast - 1] : null
-  setWrapperVar(wrapper, '--acc-dark-contrast-bg', dark?.bg ?? null)
-  setWrapperVar(wrapper, '--acc-dark-contrast-text', dark?.text ?? null)
-  setWrapperVar(wrapper, '--acc-dark-contrast-border', dark?.border ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-dark-contrast-bg', dark?.bg ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-dark-contrast-text', dark?.text ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-dark-contrast-border', dark?.border ?? null)
 
   const light = state.lightContrast > 0 ? LIGHT_CONTRAST_PRESETS[state.lightContrast - 1] : null
-  setWrapperVar(wrapper, '--acc-light-contrast-bg', light?.bg ?? null)
-  setWrapperVar(wrapper, '--acc-light-contrast-text', light?.text ?? null)
-  setWrapperVar(wrapper, '--acc-light-contrast-border', light?.border ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-light-contrast-bg', light?.bg ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-light-contrast-text', light?.text ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-light-contrast-border', light?.border ?? null)
 
   const high = state.highContrast > 0 ? HIGH_CONTRAST_PRESETS[state.highContrast - 1] : null
-  setWrapperVar(wrapper, '--acc-high-contrast-bg', high?.bg ?? null)
-  setWrapperVar(wrapper, '--acc-high-contrast-text', high?.text ?? null)
-  setWrapperVar(wrapper, '--acc-high-contrast-border', high?.border ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-high-contrast-bg', high?.bg ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-high-contrast-text', high?.text ?? null)
+  setWrapperVar(wrapper, '--accessibility-widget-high-contrast-border', high?.border ?? null)
 
-  setWrapperVar(wrapper, '--acc-monochrome-amount', state.monochrome > 0 ? '100%' : null)
-  setWrapperVar(wrapper, '--acc-invert-amount', state.invertColors > 0 ? '100%' : null)
-  setWrapperVar(wrapper, '--acc-color-blind-saturate', state.colorBlind > 0 ? `${1 - state.colorBlind * 0.1}` : null)
-  setWrapperVar(wrapper, '--acc-color-blind-contrast', state.colorBlind > 0 ? `${1 + state.colorBlind * 0.05}` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-monochrome-amount', state.monochrome > 0 ? '100%' : null)
+  setWrapperVar(wrapper, '--accessibility-widget-invert-amount', state.invertColors > 0 ? '100%' : null)
+  setWrapperVar(wrapper, '--accessibility-widget-color-blind-saturate', state.colorBlind > 0 ? `${1 - state.colorBlind * 0.1}` : null)
+  setWrapperVar(wrapper, '--accessibility-widget-color-blind-contrast', state.colorBlind > 0 ? `${1 + state.colorBlind * 0.05}` : null)
 }
 
-export function applyEffects(state: AccessifyState): void {
+export function applyEffects(state: AccessibilityWidgetState): void {
   if (typeof document === 'undefined') return
   const wrapper = document.getElementById(HOST_WRAPPER_ID)
   if (!wrapper) return
 
   const toggles: Array<[string, boolean]> = [
-    ['acc-legible-fonts', state.legibleFonts > 0],
-    ['acc-dyslexia', state.profile === 'dyslexia'],
-    ['acc-highlight-titles', state.highlightTitles > 0],
-    ['acc-highlight-links', state.highlightLinks > 0],
-    ['acc-dark-contrast', state.darkContrast > 0],
-    ['acc-light-contrast', state.lightContrast > 0],
-    ['acc-high-contrast', state.highContrast > 0],
-    ['acc-monochrome', state.monochrome > 0],
-    ['acc-invert', state.invertColors > 0],
-    ['acc-color-blind', state.colorBlind > 0],
-    ['acc-hide-images', state.hideImages > 0],
-    ['acc-off-animations', state.offAnimations > 0],
-    ['acc-text-magnifier', state.textMagnifier > 0],
-    ['acc-big-cursor', state.bigCursor > 0],
-    ['acc-reading-mask-active', state.readingMask > 0],
-    ['acc-reading-guide-active', state.readingGuide > 0],
-    ['acc-keyboard-nav', state.profile === 'keyboard-navigation'],
+    ['accessibility-widget-effect-legible-fonts', state.legibleFonts > 0],
+    ['accessibility-widget-effect-dyslexia', state.profile === 'dyslexia'],
+    ['accessibility-widget-effect-highlight-titles', state.highlightTitles > 0],
+    ['accessibility-widget-effect-highlight-links', state.highlightLinks > 0],
+    ['accessibility-widget-effect-dark-contrast', state.darkContrast > 0],
+    ['accessibility-widget-effect-light-contrast', state.lightContrast > 0],
+    ['accessibility-widget-effect-high-contrast', state.highContrast > 0],
+    ['accessibility-widget-effect-monochrome', state.monochrome > 0],
+    ['accessibility-widget-effect-invert', state.invertColors > 0],
+    ['accessibility-widget-effect-color-blind', state.colorBlind > 0],
+    ['accessibility-widget-effect-hide-images', state.hideImages > 0],
+    ['accessibility-widget-effect-off-animations', state.offAnimations > 0],
+    ['accessibility-widget-effect-text-magnifier', state.textMagnifier > 0],
+    ['accessibility-widget-effect-big-cursor', state.bigCursor > 0],
+    ['accessibility-widget-effect-reading-mask-active', state.readingMask > 0],
+    ['accessibility-widget-effect-reading-guide-active', state.readingGuide > 0],
+    ['accessibility-widget-effect-keyboard-nav', state.profile === 'keyboard-navigation'],
   ]
   for (const [cls, on] of toggles) {
     wrapper.classList.toggle(cls, on)
@@ -641,7 +641,7 @@ export function clearEffects(): void {
   const wrapper = document.getElementById(HOST_WRAPPER_ID)
   if (wrapper) {
     for (const cls of Array.from(wrapper.classList)) {
-      if (cls.startsWith('acc-')) wrapper.classList.remove(cls)
+      if (cls.startsWith('accessibility-widget-effect-')) wrapper.classList.remove(cls)
     }
   }
   const host = document.getElementById(HOST_STYLE_ID)

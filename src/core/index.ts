@@ -13,8 +13,6 @@ import {
   type AccessibilityProfile,
   type AccessibilityWidgetConfig,
   type AccessibilityWidgetState,
-  type AccessifyConfig,
-  type AccessifyState,
   type ColorScheme,
   type Lang,
   type PageStructureData,
@@ -29,8 +27,6 @@ export type {
   AccessibilityProfile,
   AccessibilityWidgetConfig,
   AccessibilityWidgetState,
-  AccessifyConfig,
-  AccessifyState,
   ColorScheme,
   Lang,
   PageStructureData,
@@ -172,13 +168,13 @@ export class AccessibilityWidget {
     }
 
     this.root = document.createElement('div')
-    this.root.className = 'accessify-root'
+    this.root.className = 'accessibility-widget-root'
     this.root.setAttribute('role', 'complementary')
     this.root.dataset.scheme = this.scheme === 'dark' ? 'dark' : 'light'
     this.applyTheme()
 
     this.trigger = document.createElement('button')
-    this.trigger.className = 'accessify-trigger'
+    this.trigger.className = 'accessibility-widget-trigger'
     this.trigger.type = 'button'
     this.trigger.dataset.position = this.config.position!
     this.trigger.setAttribute('aria-expanded', 'false')
@@ -186,14 +182,14 @@ export class AccessibilityWidget {
     this.trigger.addEventListener('click', () => this.toggle())
 
     this.overlay = document.createElement('div')
-    this.overlay.className = 'accessify-overlay'
+    this.overlay.className = 'accessibility-widget-overlay'
     this.overlay.addEventListener('click', () => {
       if (this.pageStructureOpen) this.closePageStructure()
       else this.close()
     })
 
     this.panel = document.createElement('div')
-    this.panel.className = 'accessify-panel'
+    this.panel.className = 'accessibility-widget-panel'
     this.panel.setAttribute('role', 'dialog')
     this.panel.setAttribute('aria-modal', 'true')
     this.panel.dataset.position = this.config.position!
@@ -201,13 +197,13 @@ export class AccessibilityWidget {
     this.panel.addEventListener('click', e => this.handlePanelClick(e))
 
     this.structureDialog = document.createElement('div')
-    this.structureDialog.className = 'accessify-structure-layer'
+    this.structureDialog.className = 'accessibility-widget-structure-layer'
     this.structureDialog.hidden = true
     this.structureDialog.addEventListener('click', e => this.handleStructureClick(e))
 
     this.root.append(this.trigger, this.overlay, this.panel, this.structureDialog)
     // Always append to <body> directly so the widget lives as a sibling
-    // of #accessify-host and is never affected by the effects (font-size,
+    // of #accessibility-widget-host and is never affected by the effects (font-size,
     // contrast, filters etc) applied to the page content wrapper.
     document.body.appendChild(this.root)
 
@@ -328,11 +324,11 @@ export class AccessibilityWidget {
     if (!this.root) return
     const accentColor = this.config.accentColor?.trim() || this.config.theme?.primary
     const t = this.config.theme
-    setStyleVar(this.root, '--acc-primary', accentColor)
-    setStyleVar(this.root, '--acc-primary-dark', accentColor)
-    setStyleVar(this.root, '--acc-header-bg', accentColor)
-    setStyleVar(this.root, '--acc-bg', t?.background)
-    setStyleVar(this.root, '--acc-text', t?.text)
+    setStyleVar(this.root, '--accessibility-widget-primary', accentColor)
+    setStyleVar(this.root, '--accessibility-widget-primary-dark', accentColor)
+    setStyleVar(this.root, '--accessibility-widget-header-bg', accentColor)
+    setStyleVar(this.root, '--accessibility-widget-bg', t?.background)
+    setStyleVar(this.root, '--accessibility-widget-text', t?.text)
     this.applyTriggerScheme()
   }
 
@@ -350,11 +346,11 @@ export class AccessibilityWidget {
       resolved = this.scheme === 'dark' ? 'dark' : 'light'
     }
     if (resolved === 'dark') {
-      this.root.style.setProperty('--acc-trigger-bg', '#0c0c0c')
-      this.root.style.setProperty('--acc-trigger-icon', '#ffffff')
+      this.root.style.setProperty('--accessibility-widget-trigger-bg', '#0c0c0c')
+      this.root.style.setProperty('--accessibility-widget-trigger-icon', '#ffffff')
     } else {
-      this.root.style.setProperty('--acc-trigger-bg', '#ffffff')
-      this.root.style.setProperty('--acc-trigger-icon', '#0c0c0c')
+      this.root.style.setProperty('--accessibility-widget-trigger-bg', '#ffffff')
+      this.root.style.setProperty('--accessibility-widget-trigger-icon', '#0c0c0c')
     }
   }
 
@@ -365,7 +361,7 @@ export class AccessibilityWidget {
 
   private handlePanelClick(e: MouseEvent): void {
     const target = e.target as HTMLElement
-    if (target.closest<HTMLElement>('.accessify-close')) { this.close(); return }
+    if (target.closest<HTMLElement>('.accessibility-widget-close')) { this.close(); return }
     if (this.handleActionClick(target)) return
     if (this.handleSizeClick(target)) return
     if (this.handleProfileClick(target)) return
@@ -381,7 +377,7 @@ export class AccessibilityWidget {
 
   private handleSizeClick(target: HTMLElement): boolean {
     const btn = target.closest<HTMLElement>('[data-size]')
-    if (!btn || !this.panel?.contains(btn) || !btn.classList.contains('accessify-size-switch')) return false
+    if (!btn || !this.panel?.contains(btn) || !btn.classList.contains('accessibility-widget-size-switch')) return false
     this.setSize(btn.dataset.size as WidgetSize)
     return true
   }
@@ -449,13 +445,13 @@ export class AccessibilityWidget {
   }
 
   private trapStructureFocus(): void {
-    const closeBtn = this.structureDialog?.querySelector<HTMLElement>('.accessify-structure-close')
+    const closeBtn = this.structureDialog?.querySelector<HTMLElement>('.accessibility-widget-structure-close')
     if (!this.structureDialog || !closeBtn) return
     trapFocus(this.structureDialog, closeBtn, () => this.closePageStructure())
   }
 
   private jumpToStructureTarget(id: string): void {
-    const target = document.querySelector<HTMLElement>(`[data-accessify-structure-id="${id}"]`)
+    const target = document.querySelector<HTMLElement>(`[data-accessibility-widget-structure-id="${id}"]`)
     if (!target) return
     this.closePageStructure()
     target.scrollIntoView({ block: 'center', behavior: 'smooth' })
@@ -509,12 +505,12 @@ export class AccessibilityWidget {
     this.updateWidgetLabels()
     this.panel.classList.toggle('open', this.isOpen)
     this.overlay?.classList.toggle('open', this.isOpen)
-    const prevScroll = this.panel.querySelector<HTMLElement>('.accessify-body')?.scrollTop ?? 0
+    const prevScroll = this.panel.querySelector<HTMLElement>('.accessibility-widget-body')?.scrollTop ?? 0
     this.panel.innerHTML = renderPanel(this.state, this.size, this.lang, {
       pageStructureOpen: this.pageStructureOpen,
       title: this.getTitle(),
     })
-    const nextBody = this.panel.querySelector<HTMLElement>('.accessify-body')
+    const nextBody = this.panel.querySelector<HTMLElement>('.accessibility-widget-body')
     if (nextBody) nextBody.scrollTop = prevScroll
     this.renderStructureDialog()
     this.applyScheme()
@@ -602,5 +598,3 @@ export class AccessibilityWidget {
     return 0
   }
 }
-
-export { AccessibilityWidget as Accessify }

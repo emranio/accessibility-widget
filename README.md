@@ -61,8 +61,6 @@ Common config options:
 - `AccessibilityWidget`
 - `ReactAccessibilityWidget`
 - `useAccessibilityWidget`
-- `AccessifyWidget`
-- `useAccessify`
 
 ## Scripts
 

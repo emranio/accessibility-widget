@@ -2,7 +2,7 @@ import { ICONS } from './icons'
 import type { PageStructureData, PageStructureItem, PageStructureTab } from './types'
 import type { Translations } from './i18n'
 
-const STRUCTURE_TARGET_ATTR = 'data-accessify-structure-id'
+const STRUCTURE_TARGET_ATTR = 'data-accessibility-widget-structure-id'
 const MAX_ITEMS = 80
 let structureTargetId = 0
 
@@ -37,17 +37,17 @@ function escapeHtml(value: string): string {
 function targetIdFor(el: Element): string {
   const existing = el.getAttribute(STRUCTURE_TARGET_ATTR)
   if (existing) return existing
-  const id = `accessify-structure-${++structureTargetId}`
+  const id = `accessibility-widget-structure-${++structureTargetId}`
   el.setAttribute(STRUCTURE_TARGET_ATTR, id)
   return id
 }
 
 function pageRoot(): HTMLElement {
-  return document.getElementById('accessify-host') ?? document.body
+  return document.getElementById('accessibility-widget-host') ?? document.body
 }
 
 function isIgnored(el: Element): boolean {
-  return Boolean(el.closest('.accessify-root, script, style, template, [hidden], [aria-hidden="true"]'))
+  return Boolean(el.closest('.accessibility-widget-root, script, style, template, [hidden], [aria-hidden="true"]'))
 }
 
 function isVisible(el: Element): boolean {
@@ -180,9 +180,9 @@ function tabLabel(tab: PageStructureTab, t: Translations): string {
 function renderTabs(activeTab: PageStructureTab, t: Translations): string {
   const tabs: PageStructureTab[] = ['headings', 'landmarks', 'links']
   return `
-    <div class="accessify-structure-tabs" role="tablist" aria-label="${escapeHtml(t.pageStructure)}">
+    <div class="accessibility-widget-structure-tabs" role="tablist" aria-label="${escapeHtml(t.pageStructure)}">
       ${tabs.map(tab => `
-        <button type="button" class="accessify-structure-tab" role="tab" data-structure-tab="${tab}" aria-selected="${activeTab === tab}">
+        <button type="button" class="accessibility-widget-structure-tab" role="tab" data-structure-tab="${tab}" aria-selected="${activeTab === tab}">
           ${escapeHtml(tabLabel(tab, t))}
         </button>
       `).join('')}
@@ -192,22 +192,22 @@ function renderTabs(activeTab: PageStructureTab, t: Translations): string {
 
 function renderBadge(tab: PageStructureTab, item: PageStructureItem): string {
   if (tab === 'headings') {
-    return `<span class="accessify-structure-badge accessify-structure-badge--text">${escapeHtml(item.meta)}</span>`
+    return `<span class="accessibility-widget-structure-badge accessibility-widget-structure-badge--text">${escapeHtml(item.meta)}</span>`
   }
   const icon = tab === 'links' ? ICONS.structureLink : ICONS.structureLandmark
-  return `<span class="accessify-structure-badge">${icon}</span>`
+  return `<span class="accessibility-widget-structure-badge">${icon}</span>`
 }
 
 function renderItems(items: PageStructureItem[], activeTab: PageStructureTab, t: Translations): string {
   if (items.length === 0) {
-    return `<div class="accessify-structure-empty">${escapeHtml(t.noStructureItems)}</div>`
+    return `<div class="accessibility-widget-structure-empty">${escapeHtml(t.noStructureItems)}</div>`
   }
 
   return items.map(item => `
-    <button type="button" class="accessify-structure-item" data-structure-target="${escapeHtml(item.id)}" style="--acc-structure-depth:${item.depth ?? 0}">
+    <button type="button" class="accessibility-widget-structure-item" data-structure-target="${escapeHtml(item.id)}" style="--accessibility-widget-structure-depth:${item.depth ?? 0}">
       ${renderBadge(activeTab, item)}
-      <span class="accessify-structure-item-label">${escapeHtml(item.label)}</span>
-      ${item.external ? `<span class="accessify-structure-external">${ICONS.structureExternal}</span>` : ''}
+      <span class="accessibility-widget-structure-item-label">${escapeHtml(item.label)}</span>
+      ${item.external ? `<span class="accessibility-widget-structure-external">${ICONS.structureExternal}</span>` : ''}
     </button>
   `).join('')
 }
@@ -222,15 +222,15 @@ export function renderPageStructureDialog(
   const items = data[activeTab]
 
   return `
-    <div class="accessify-structure-dialog" role="dialog" aria-modal="true" aria-label="${escapeHtml(t.pageStructure)}"${dir}>
-      <div class="accessify-structure-header">
+    <div class="accessibility-widget-structure-dialog" role="dialog" aria-modal="true" aria-label="${escapeHtml(t.pageStructure)}"${dir}>
+      <div class="accessibility-widget-structure-header">
         <h2>${escapeHtml(t.pageStructure)}</h2>
-        <button type="button" class="accessify-structure-close" data-structure-action="close" aria-label="${escapeHtml(t.close)}">
+        <button type="button" class="accessibility-widget-structure-close" data-structure-action="close" aria-label="${escapeHtml(t.close)}">
           ${ICONS.close}
         </button>
       </div>
       ${renderTabs(activeTab, t)}
-      <div class="accessify-structure-list" role="tabpanel" aria-label="${escapeHtml(tabLabel(activeTab, t))}">
+      <div class="accessibility-widget-structure-list" role="tabpanel" aria-label="${escapeHtml(tabLabel(activeTab, t))}">
         ${renderItems(items, activeTab, t)}
       </div>
     </div>

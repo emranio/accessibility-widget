@@ -61,7 +61,7 @@ describe('renderPanel', () => {
 
   it('renders variable level indicators only for multi-level tools', () => {
     const html = renderPanel(freshState(), 'S')
-    expect(html).toContain('accessify-levels')
+    expect(html).toContain('accessibility-widget-levels')
     expect(html).toContain('data-tool="fontSize" data-level="0" data-max-level="4"')
     expect(html).toContain('data-tool="highlightLinks" data-level="0" data-max-level="2"')
     expect(html).toContain('data-tool="legibleFonts" data-level="0" data-max-level="2"')
@@ -74,7 +74,7 @@ describe('renderPanel', () => {
     state.fontSize = 3
     const html = renderPanel(state, 'S')
     expect(html).toContain('data-tool="fontSize" data-level="3"')
-    expect(html).toContain('accessify-level active')
+    expect(html).toContain('accessibility-widget-level active')
   })
 
   it('renders all toggle tiles', () => {
@@ -169,7 +169,7 @@ describe('renderPanel', () => {
   })
 
   it('renders close button', () => {
-    expect(renderPanel(freshState(), 'S')).toContain('accessify-close')
+    expect(renderPanel(freshState(), 'S')).toContain('accessibility-widget-close')
   })
 
   it('does not render page analysis controls', () => {

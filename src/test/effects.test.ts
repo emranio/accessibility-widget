@@ -40,9 +40,9 @@ describe('ensureHostWrapper', () => {
     expect(wrapper.querySelector('#content')).not.toBeNull()
   })
 
-  it('does not move .accessify-root elements into wrapper', () => {
+  it('does not move .accessibility-widget-root elements into wrapper', () => {
     const root = document.createElement('div')
-    root.className = 'accessify-root'
+    root.className = 'accessibility-widget-root'
     document.body.appendChild(root)
     ensureHostWrapper()
     expect(document.body.contains(root)).toBe(true)
@@ -75,112 +75,112 @@ describe('applyEffects', () => {
     ensureHostWrapper()
   })
 
-  it('toggles acc-legible-fonts class and font variables', () => {
+  it('toggles accessibility-widget-effect-legible-fonts class and font variables', () => {
     const state = freshState()
     state.legibleFonts = 1
     applyEffects(state)
     const wrapper = document.getElementById(HOST_WRAPPER_ID)!
-    expect(wrapper.classList.contains('acc-legible-fonts')).toBe(true)
-    expect(wrapper.style.getPropertyValue('--acc-legible-font-family')).toBe('"Accessify Lexend"')
+    expect(wrapper.classList.contains('accessibility-widget-effect-legible-fonts')).toBe(true)
+    expect(wrapper.style.getPropertyValue('--accessibility-widget-legible-font-family')).toBe('"Accessibility Widget Lexend"')
   })
 
   it('uses Atkinson Hyperlegible for the second legible font level', () => {
     const state = freshState()
     state.legibleFonts = 2
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.style.getPropertyValue('--acc-legible-font-family')).toBe('"Accessify Atkinson Hyperlegible"')
+    expect(document.getElementById(HOST_WRAPPER_ID)!.style.getPropertyValue('--accessibility-widget-legible-font-family')).toBe('"Accessibility Widget Atkinson Hyperlegible"')
   })
 
-  it('removes acc-legible-fonts when false', () => {
+  it('removes accessibility-widget-effect-legible-fonts when false', () => {
     const wrapper = document.getElementById(HOST_WRAPPER_ID)!
-    wrapper.classList.add('acc-legible-fonts')
+    wrapper.classList.add('accessibility-widget-effect-legible-fonts')
     applyEffects(freshState())
-    expect(wrapper.classList.contains('acc-legible-fonts')).toBe(false)
+    expect(wrapper.classList.contains('accessibility-widget-effect-legible-fonts')).toBe(false)
   })
 
-  it('toggles acc-highlight-titles', () => {
+  it('toggles accessibility-widget-effect-highlight-titles', () => {
     const state = freshState()
     state.highlightTitles = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-highlight-titles')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-highlight-titles')).toBe(true)
   })
 
-  it('toggles acc-highlight-links', () => {
+  it('toggles accessibility-widget-effect-highlight-links', () => {
     const state = freshState()
     state.highlightLinks = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-highlight-links')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-highlight-links')).toBe(true)
   })
 
-  it('toggles acc-dark-contrast', () => {
+  it('toggles accessibility-widget-effect-dark-contrast', () => {
     const state = freshState()
     state.darkContrast = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-dark-contrast')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-dark-contrast')).toBe(true)
   })
 
-  it('toggles acc-light-contrast', () => {
+  it('toggles accessibility-widget-effect-light-contrast', () => {
     const state = freshState()
     state.lightContrast = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-light-contrast')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-light-contrast')).toBe(true)
   })
 
-  it('toggles acc-high-contrast', () => {
+  it('toggles accessibility-widget-effect-high-contrast', () => {
     const state = freshState()
     state.highContrast = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-high-contrast')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-high-contrast')).toBe(true)
   })
 
-  it('toggles acc-monochrome', () => {
+  it('toggles accessibility-widget-effect-monochrome', () => {
     const state = freshState()
     state.monochrome = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-monochrome')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-monochrome')).toBe(true)
   })
 
-  it('toggles acc-invert for invertColors', () => {
+  it('toggles accessibility-widget-effect-invert for invertColors', () => {
     const state = freshState()
     state.invertColors = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-invert')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-invert')).toBe(true)
   })
 
-  it('toggles acc-color-blind and injects SVG filter', () => {
+  it('toggles accessibility-widget-effect-color-blind and injects SVG filter', () => {
     const state = freshState()
     state.colorBlind = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-color-blind')).toBe(true)
-    expect(document.getElementById('acc-protanopia-filter')).not.toBeNull()
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-color-blind')).toBe(true)
+    expect(document.getElementById('accessibility-widget-protanopia-filter')).not.toBeNull()
   })
 
-  it('toggles acc-hide-images', () => {
+  it('toggles accessibility-widget-effect-hide-images', () => {
     const state = freshState()
     state.hideImages = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-hide-images')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-hide-images')).toBe(true)
   })
 
-  it('toggles acc-off-animations', () => {
+  it('toggles accessibility-widget-effect-off-animations', () => {
     const state = freshState()
     state.offAnimations = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-off-animations')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-off-animations')).toBe(true)
   })
 
-  it('toggles acc-dyslexia for dyslexia profile', () => {
+  it('toggles accessibility-widget-effect-dyslexia for dyslexia profile', () => {
     const state = freshState()
     state.profile = 'dyslexia'
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-dyslexia')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-dyslexia')).toBe(true)
   })
 
   it('injects dynamic font-size CSS for non-zero fontSize', () => {
     const state = freshState()
     state.fontSize = 2
     applyEffects(state)
-    const style = document.getElementById('accessify-host-effects') as HTMLStyleElement
+    const style = document.getElementById('accessibility-widget-host-effects') as HTMLStyleElement
     expect(style?.textContent).toContain('font-size:')
   })
 
@@ -188,10 +188,10 @@ describe('applyEffects', () => {
     const state = freshState()
     state.bigCursor = 2
     applyEffects(state)
-    const style = document.getElementById('accessify-host-effects') as HTMLStyleElement
+    const style = document.getElementById('accessibility-widget-host-effects') as HTMLStyleElement
     expect(style?.textContent).toContain('cursor:')
     expect(style?.textContent).toContain('data:image/svg+xml')
-    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('acc-big-cursor')).toBe(true)
+    expect(document.getElementById(HOST_WRAPPER_ID)!.classList.contains('accessibility-widget-effect-big-cursor')).toBe(true)
   })
 
   it('does nothing when wrapper is absent', () => {
@@ -229,7 +229,7 @@ describe('applyEffects', () => {
     applyEffects(state)
     document.dispatchEvent(new MouseEvent('mousemove', { clientX: 120, clientY: 140, bubbles: true }))
 
-    const magnifierText = document.querySelector('.acc-magnify-cursor')?.textContent
+    const magnifierText = document.querySelector('.accessibility-widget-magnify-cursor')?.textContent
     expect(magnifierText).toContain('Position Bottom right Size Medium')
     expect(magnifierText).not.toContain('Bottom rightBottom left')
     expect(magnifierText).not.toContain('SmallMediumLarge')
@@ -239,8 +239,8 @@ describe('applyEffects', () => {
     const state = freshState()
     state.readingLens = 1
     applyEffects(state)
-    expect(document.querySelector('.acc-reading-lens')).not.toBeNull()
-    expect(document.querySelector('.acc-reading-lens-inner')).not.toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-lens')).not.toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-lens-inner')).not.toBeNull()
   })
 
   it('removes reading lens element when readingLens turns off', () => {
@@ -249,15 +249,15 @@ describe('applyEffects', () => {
     applyEffects(state)
     state.readingLens = 0
     applyEffects(state)
-    expect(document.querySelector('.acc-reading-lens')).toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-lens')).toBeNull()
   })
 
   it('mounts reading mask element when readingMask is true', () => {
     const state = freshState()
     state.readingMask = 1
     applyEffects(state)
-    expect(document.querySelector('.acc-reading-mask')).not.toBeNull()
-    expect(document.querySelectorAll('.acc-reading-mask-panel')).toHaveLength(2)
+    expect(document.querySelector('.accessibility-widget-reading-mask')).not.toBeNull()
+    expect(document.querySelectorAll('.accessibility-widget-reading-mask-panel')).toHaveLength(2)
   })
 
   it('removes reading mask element when readingMask turns off', () => {
@@ -266,15 +266,15 @@ describe('applyEffects', () => {
     applyEffects(state)
     state.readingMask = 0
     applyEffects(state)
-    expect(document.querySelector('.acc-reading-mask')).toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-mask')).toBeNull()
   })
 
   it('mounts reading guide element when readingGuide is true', () => {
     const state = freshState()
     state.readingGuide = 1
     applyEffects(state)
-    expect(document.querySelector('.acc-reading-guide')).not.toBeNull()
-    expect(document.querySelector('.acc-reading-guide-pointer')).not.toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-guide')).not.toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-guide-pointer')).not.toBeNull()
   })
 
   it('removes reading guide element when readingGuide turns off', () => {
@@ -283,14 +283,14 @@ describe('applyEffects', () => {
     applyEffects(state)
     state.readingGuide = 0
     applyEffects(state)
-    expect(document.querySelector('.acc-reading-guide')).toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-guide')).toBeNull()
   })
 
-  it('does NOT add acc-reading-lens class to wrapper (avoids style collision with the lens element)', () => {
+  it('does NOT add accessibility-widget-reading-lens class to wrapper (avoids style collision with the lens element)', () => {
     const state = freshState()
     state.readingLens = 1
     applyEffects(state)
-    expect(document.getElementById(HOST_WRAPPER_ID)?.classList.contains('acc-reading-lens')).toBe(false)
+    expect(document.getElementById(HOST_WRAPPER_ID)?.classList.contains('accessibility-widget-reading-lens')).toBe(false)
   })
 
   it('reading lens mirrors live input values into the clone', () => {
@@ -305,7 +305,7 @@ describe('applyEffects', () => {
     state.readingLens = 1
     applyEffects(state)
 
-    const lensInput = document.querySelector<HTMLInputElement>('.acc-reading-lens-inner input')
+    const lensInput = document.querySelector<HTMLInputElement>('.accessibility-widget-reading-lens-inner input')
     expect(lensInput).not.toBeNull()
     expect(lensInput!.value).toBe('typed text')
   })
@@ -321,7 +321,7 @@ describe('applyEffects', () => {
     state.readingLens = 1
     applyEffects(state)
 
-    const lensSelect = document.querySelector<HTMLSelectElement>('.acc-reading-lens-inner select')
+    const lensSelect = document.querySelector<HTMLSelectElement>('.accessibility-widget-reading-lens-inner select')
     expect(lensSelect).not.toBeNull()
     expect(lensSelect!.selectedIndex).toBe(2)
   })
@@ -338,13 +338,13 @@ describe('applyEffects', () => {
     applyEffects(state)
 
     wrapper.dispatchEvent(new MouseEvent('mousemove', { clientX: 120, clientY: 140, bubbles: true }))
-    const visibleClone = document.querySelector('.acc-reading-lens-inner')?.firstElementChild
+    const visibleClone = document.querySelector('.accessibility-widget-reading-lens-inner')?.firstElementChild
     expect(visibleClone).not.toBeNull()
 
     wrapper.dispatchEvent(new MouseEvent('mousemove', { clientX: 124, clientY: 146, bubbles: true }))
     applyEffects(state)
 
-    const cloneAfterMoveAndEffect = document.querySelector('.acc-reading-lens-inner')?.firstElementChild
+    const cloneAfterMoveAndEffect = document.querySelector('.accessibility-widget-reading-lens-inner')?.firstElementChild
     expect(cloneAfterMoveAndEffect).toBe(visibleClone)
   })
 
@@ -363,13 +363,13 @@ describe('applyEffects', () => {
     applyEffects(state)
     wrapper.dispatchEvent(new MouseEvent('mousemove', { clientX: 120, clientY: 140, bubbles: true }))
 
-    const inner = document.querySelector<HTMLElement>('.acc-reading-lens-inner')
+    const inner = document.querySelector<HTMLElement>('.accessibility-widget-reading-lens-inner')
     expect(inner?.style.transform).toContain('translate3d')
     const transformBeforeEffectCommit = inner?.style.transform
 
     applyEffects(state)
 
-    expect(document.querySelector<HTMLElement>('.acc-reading-lens-inner')?.style.transform).toBe(transformBeforeEffectCommit)
+    expect(document.querySelector<HTMLElement>('.accessibility-widget-reading-lens-inner')?.style.transform).toBe(transformBeforeEffectCommit)
   })
 })
 
@@ -378,15 +378,15 @@ describe('clearEffects', () => {
     ensureHostWrapper()
   })
 
-  it('removes all acc-* classes from wrapper', () => {
+  it('removes all accessibility-widget-effect-* classes from wrapper', () => {
     const state = freshState()
     state.legibleFonts = 1
     state.darkContrast = 1
     applyEffects(state)
     clearEffects()
     const wrapper = document.getElementById(HOST_WRAPPER_ID)!
-    const accClasses = Array.from(wrapper.classList).filter(c => c.startsWith('acc-'))
-    expect(accClasses).toHaveLength(0)
+    const accessibilityWidgetEffectClasses = Array.from(wrapper.classList).filter(c => c.startsWith('accessibility-widget-effect-'))
+    expect(accessibilityWidgetEffectClasses).toHaveLength(0)
   })
 
   it('clears dynamic style content', () => {
@@ -394,7 +394,7 @@ describe('clearEffects', () => {
     state.fontSize = 3
     applyEffects(state)
     clearEffects()
-    const style = document.getElementById('accessify-host-effects') as HTMLStyleElement
+    const style = document.getElementById('accessibility-widget-host-effects') as HTMLStyleElement
     expect(style?.textContent ?? '').toBe('')
   })
 
@@ -403,7 +403,7 @@ describe('clearEffects', () => {
     state.colorBlind = 1
     applyEffects(state)
     clearEffects()
-    expect(document.getElementById('acc-protanopia-filter')).toBeNull()
+    expect(document.getElementById('accessibility-widget-protanopia-filter')).toBeNull()
   })
 
   it('removes reading mask and guide overlays', () => {
@@ -412,8 +412,8 @@ describe('clearEffects', () => {
     state.readingGuide = 1
     applyEffects(state)
     clearEffects()
-    expect(document.querySelector('.acc-reading-mask')).toBeNull()
-    expect(document.querySelector('.acc-reading-guide')).toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-mask')).toBeNull()
+    expect(document.querySelector('.accessibility-widget-reading-guide')).toBeNull()
   })
 
   it('is safe to call when nothing was applied', () => {

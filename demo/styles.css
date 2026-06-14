@@ -7,9 +7,9 @@
   --line: rgba(37, 31, 24, 0.12);
   --ink: #1e2428;
   --ink-muted: #57534e;
-  --accent: #c96b3e;
-  --accent-2: #1c6c68;
-  --accent-3: #2e3866;
+  --demo-accent: #c96b3e;
+  --demo-accent-2: #1c6c68;
+  --demo-accent-3: #2e3866;
   --shadow: 0 18px 48px rgba(31, 25, 18, 0.13);
   --display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
   --body: "Avenir Next", "Trebuchet MS", "Segoe UI", sans-serif;
@@ -126,7 +126,7 @@ a {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: var(--accent-2);
+  color: var(--demo-accent-2);
   font-weight: 700;
 }
 
@@ -234,7 +234,7 @@ blockquote {
 .theme-pill {
   cursor: pointer;
   color: #fff;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  background: linear-gradient(135deg, var(--demo-accent), var(--demo-accent-2));
   padding: 12px 18px;
   border: none;
 }
@@ -365,7 +365,7 @@ blockquote {
   font-family: var(--display);
   font-size: 3.4rem;
   line-height: 1;
-  color: var(--accent-3);
+  color: var(--demo-accent-3);
 }
 
 .content-grid {
@@ -375,7 +375,7 @@ blockquote {
 .story-card blockquote {
   margin: 20px 0;
   padding: 18px 18px 18px 22px;
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--demo-accent);
   background: rgba(255, 255, 255, 0.42);
   border-radius: 0 18px 18px 0;
 }
@@ -491,7 +491,7 @@ thead th {
   inset: 0;
   display: grid;
   place-items: center;
-  color: var(--accent-3);
+  color: var(--demo-accent-3);
   font-size: 1.15rem;
 }
 
@@ -510,7 +510,7 @@ thead th {
   height: 18px;
   font-size: 0.72rem;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--demo-accent);
   color: #fff;
   text-decoration: none;
 }
